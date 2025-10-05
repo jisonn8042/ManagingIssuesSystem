@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/icon/list-check.png">
+    <link rel="stylesheet" href="../list/style.css">
+    <link rel="stylesheet" href="../components/profilecard/profilecard.css">
+    <link rel="stylesheet" href="../components/dropbox/dropbox.css">
+    <link rel="stylesheet" href="../components/userlistdropbox/userlistdropbox.css">
+    <title>課題一覧</title>
+</head>
+<body class="invisible">
+    <script src="../middlewares/checkAuth.js"></script>
+    
+    <div class="header">
+        <div class="header-wrapper">
+            <div class="header-title">課題管理システム/課題一覧</div>
+            <div class="profile-icon">
+                <div class="profile-wrapper">
+                </div>
+            </div>
+        </div>
+        <form class="search-bar">
+            <div class="search-bar-top">
+                <div class="search-bar-top-title">課題一覧</div>
+                <div class="search-bar-top-button-wrapper">
+                    <button type="button" class="search-bar-top-button reset" id="condition-reset-button">
+                        条件初期化
+                    </button>
+                    <button type="button" class="search-bar-top-button search" id="search-button">
+                        検索
+                    </button>
+                    <button type="button" class="search-bar-top-button registration" id="task-registration-button">
+                        課題登録
+                    </button>
+                </div>
+            </div>
+            <div class="search-bar-middle">
+                <div class="search-bar-middle-status-wrapper">
+                    <div class="search-bar-middle-status-title">
+                        ステータス
+                    </div>
+                    <div class="search-bar-middle-status-options-wrapper" id="status-options-wrapper">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-status_id="1" id="status_1" value="1">
+                            <label class="checkbox-label" for="status_1">未着手</label>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-status_id="2" id="status_2" value="2">
+                            <label class="checkbox-label" for="status_2">着手</label>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-status_id="3" id="status_3" value="3">
+                            <label class="checkbox-label" for="status_3">対応済</label>
+                        </div>                    
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-status_id="4" id="status_4" value="4">
+                            <label class="checkbox-label" for="status_4">確認中</label>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-status_id="5" id="status_5" value="5">
+                            <label class="checkbox-label" for="status_5">確認済</label>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-status_id="6" id="status_6" value="6">
+                            <label class="checkbox-label" for="status_6">対応不要</label>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-status_id="7" id="status_7" value="7">
+                            <label class="checkbox-label" for="status_7">差戻</label>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-status_id="8" id="status_8" value="8">
+                            <label class="checkbox-label" for="status_8">完了</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-bar-middle-priority-wrapper">
+                    <div class="search-bar-middle-priority-title">
+                        優先度
+                    </div>
+                    <div class="search-bar-middle-priority-options-wrapper" id="priority-options-wrapper">
+                        <div class="checkbox-wrapper checked">
+                            <input type="checkbox" class="checkbox-icon check" data-priority_id="1" id="priority_1" value="1">
+                            <label class="checkbox-label" for="priority_1">低め</label>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-priority_id="2" id="priority_2" value="2">
+                            <label class="checkbox-label" for="priority_2">通常</label>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="checkbox-icon" data-priority_id="3" id="priority_3" value="3">
+                            <label class="checkbox-label" for="priority_3">高め</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-bar-middle-title-search-wrapper">
+                    <div class="search-bar-middle-title-search-title">
+                        タイトル検索
+                    </div>
+                    <input type="text" class="search-bar-middle-title-search-input" placeholder="タイトルを入力してください" id="title-input">
+                </div>
+            </div>
+            <div class="search-bar-bottom">
+                <div class="search-bar-bottom-wrapper">
+                    <div class="search-bar-bottom-user-wrapper">
+                        <div class="search-bar-bottom-user-wrapper-title">
+                            起票者
+                        </div>
+                        <div class="drop-box-wrapper" id="suggested-by">  
+                        </div>
+                    </div>
+                    <div class="search-bar-bottom-date-wrapper">
+                        <div class="search-bar-bottom-date-wrapper-title">
+                            起票日
+                        </div>
+                        <div class="search-bar-bottom-date-wrapper-input-wrapper">                        
+                            <input type="date" class="search-bar-bottom-date-wrapper-input" placeholder="YYYY/MM/DD" id="suggested-at-start">
+                            <input type="date" class="search-bar-bottom-date-wrapper-input" placeholder="YYYY/MM/DD" id="suggested-at-end">
+                        </div>
+                    </div>
+                    <div class="search-bar-bottom-user-wrapper">
+                        <div class="search-bar-bottom-user-wrapper-title">
+                            担当者
+                        </div>
+                        <div class="drop-box-wrapper" id="assigned-to">  
+                        </div>
+                    </div>
+                    <div class="search-bar-bottom-date-wrapper">
+                        <div class="search-bar-bottom-date-wrapper-title">
+                            期限日
+                        </div>
+                        <div class="search-bar-bottom-date-wrapper-input-wrapper">                        
+                            <input type="date" class="search-bar-bottom-date-wrapper-input" placeholder="YYYY/MM/DD" id="deadline-start">
+                            <input type="date" class="search-bar-bottom-date-wrapper-input" placeholder="YYYY/MM/DD" id="deadline-end">
+                        </div>
+                    </div>
+                    <div class="search-bar-bottom-date-wrapper">
+                        <div class="search-bar-bottom-date-wrapper-title">
+                            完了日
+                        </div>
+                        <div class="search-bar-bottom-date-wrapper-input-wrapper">                        
+                            <input type="date" class="search-bar-bottom-date-wrapper-input" placeholder="YYYY/MM/DD" id="completed-at-start">
+                            <input type="date" class="search-bar-bottom-date-wrapper-input" placeholder="YYYY/MM/DD" id="completed-at-end">
+                        </div>
+                    </div>
+    
+    
+                </div>
+            </div>
+        </form>
+        <div class="tasks-layout-top">
+            <div class="tasks-counts">
+                <div class="tasks-counts-info">
+                    全 0件中 0-0件目
+                </div>
+                <div class="tasks-page-control">
+                    <div class="tasks-page-control-display-wrapper">
+                        <div class="tasks-page-control-display-count-wrapper-text">
+                            表示件数
+                        </div>
+                        <div class="drop-box-wrapper" id="display-count">  
+                        </div>
+                    </div>
+                    <div class="tasks-page-control-button-wrapper">
+                        <button class="tasks-page-control-button disabled" id="prev">
+                            前へ
+                        </button>
+                        <button class="tasks-page-control-button" id="next">
+                            次へ
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="list">
+                <div class="list-wrapper subject">
+                    <div class="list-item subject">
+                        課題No
+                    </div>
+                    <div class="list-item subject">
+                        ステータス
+                    </div>
+                    <div class="list-item subject">
+                        優先度
+                    </div>
+                    <div class="list-item subject title">
+                        タイトル
+                    </div>
+                    <div class="list-item subject">
+                        起票者
+                    </div>
+                    <div class="list-item subject">
+                        起票日
+                    </div>
+                    <div class="list-item subject">
+                        担当者
+                    </div>
+                    <div class="list-item subject">
+                        期限日
+                    </div>
+                    <div class="list-item subject">
+                        完了日
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list-white-space">
+        <div class="tasks-layout">
+            <div class="list">
+                <div class="list-item-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../list/script.js" type="module"></script>
+</body>
+</html>
+

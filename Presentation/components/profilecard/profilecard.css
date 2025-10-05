@@ -1,0 +1,109 @@
+/*reset*/
+button{
+    border: none;
+}
+
+.profile-card-button.profile-card-button-disabled{
+    visibility: hidden;
+    opacity: 0;
+    cursor: default;
+}
+
+/*styles*/  
+*{
+    font-family: Noto Sans JP;
+}
+
+
+.layout{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-wrapper{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 50%;
+    background-color: #FCFCFD;
+    font-size: 20px;
+    line-height: 40px;
+    color: #707070;
+    text-align: center;
+}
+
+.profile-wrapper:hover{
+    cursor: pointer;
+}
+
+.profile-card{
+    position: absolute;
+    right: 0;
+    top: 40px;
+    width: 300px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+    box-sizing: border-box;
+    cursor: default;
+    z-index: 100;
+    
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+    background-color: #FCFCFD;
+    border-radius: 2.5px;
+
+    font-family: Noto Sans JP;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: left;
+    color: #3C3C3C;
+}
+
+.profile-card-text{
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+    height: 30px;
+    line-height: 30px;
+
+}
+
+
+.profile-card-button-wrapper{
+    padding: 4px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-card-button{
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #D9D9D9;
+    color: #FFFFFF;
+
+    font-family: Noto Sans JP;
+    font-size: 20px;
+    line-height: 100%;
+    cursor: pointer;
+}
+
+.profile-card-button.UserManage{
+    background-color: #36A15D;
+}
+
+.profile-card-button.UserManage:hover{
+    background-color: #288f4e;
+}
+
+.profile-card-button.Logout{
+    background-color: #ED5C5E;
+}
+
+.profile-card-button.Logout:hover{
+    background-color: #a03b3c;
+}

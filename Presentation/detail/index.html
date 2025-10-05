@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題詳細</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/icon/list-check.png">
+    <link rel="stylesheet" href="../components/dropbox/dropbox.css">
+    <link rel="stylesheet" href="../components/userlistdropbox/userlistdropbox.css">
+    <link rel="stylesheet" href="../detail/style.css">
+    <link rel="stylesheet" href="../components/profilecard/profilecard.css">
+</head>
+<body>
+    <script src="../middlewares/checkAuth.js" type="module"></script>
+    <div id="overlay">
+        <span>
+            依頼送信中です、、、
+        </span>
+    </div>
+    <div class="page-layout">
+        <div class="header">
+            <div class="header-wrapper">
+                <a href="../list" class="backward-button">
+                    ←
+                </a>
+                <div class="header-title">課題管理システム/課題詳細</div>
+                <div class="profile-icon">
+                    <div class="profile-wrapper">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content" id="print-area">
+            <form class="content-wrapper" name="task">
+                <div class="content-wrapper-title">
+                    <div class="content-wrapper-title-item">
+                        課題No
+                    </div>
+
+                    <div class="content-wrapper-title-item title">
+                        タイトル
+                    </div>
+                    <div class="content-wrapper-title-item">
+                        ステータス
+                    </div>
+                    <div class="content-wrapper-title-item">
+                        優先度
+                    </div>
+                    
+                    <div class="content-wrapper-title-item" id="task-id"></div>
+                    <div class="content-wrapper-title-item title" id="title">
+                    </div>
+                    <div class="content-wrapper-title-item status" id="status">
+                    </div>
+                    <div class="content-wrapper-title-item priority" id="priority">
+                    </div>
+                </div>
+
+                <div class="content-wrapper-user">
+                    <div class="content-wrapper-user-item">
+                        起票者
+                    </div>                    
+                    <div class="content-wrapper-user-item">
+                        起票日
+                    </div>                    
+                    <div class="content-wrapper-user-item">
+                        担当者
+                    </div>                    
+                    <div class="content-wrapper-user-item">
+                        期限日
+                    </div>                    
+                    <div class="content-wrapper-user-item" id="suggested-by">
+                    </div>                    
+                    <div class="content-wrapper-user-item" id="suggested-at">
+                    </div>                    
+                    <div class="content-wrapper-user-item" id="assigned-to">
+                    </div>               
+                    <div class="content-wrapper-user-item" id="deadline">
+                    </div>
+                </div>
+
+                <div class="content-wrapper-description task">
+                    <div class="content-wrapper-description-item">
+                        <div class="content-wrapper-description-item-title">
+                            課題内容
+                        </div>
+                    </div>
+                    <div class="content-wrapper-description-item" id="task-description">
+                    </div>
+
+                </div>
+
+                <div class="content-wrapper-description action">
+                    <div class="content-wrapper-description-item">
+                        <div class="content-wrapper-description-item-title">
+                            対応内容
+                        </div>
+                    </div>
+                    <div class="content-wrapper-description-item" id="action-description">
+                    </div>
+
+                </div>
+
+                <div class="content-wrapper-date">            
+                    <div class="content-wrapper-date-item">
+                        更新者
+                    </div>                    
+                    <div class="content-wrapper-date-item">
+                        更新日
+                    </div>                    
+                    <div class="content-wrapper-date-item">
+                        完了日
+                    </div>                                   
+                    <div class="content-wrapper-date-item" id="updated-by">
+                    </div>                    
+                    <div class="content-wrapper-date-item" id="updated-at">
+                    </div>                    
+                    <div class="content-wrapper-date-item" id="completed-at">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="footer">
+            <div class="footer-wrapper">
+                <button class="footer-wrapper-button normal" id="print-button">
+                    印刷
+                </button>
+                <button class="footer-wrapper-button normal" id="data-to-file-output">
+                    データ出力
+                </button>
+                <div class="drop-box-wrapper" id="user-select"></div>
+                <button class="footer-wrapper-button normal" id="request-button">
+                    依頼送信
+                </button>
+                <button class="footer-wrapper-button cancle hidden" id="delete-button">
+                    削除
+                </button>
+                <button class="footer-wrapper-button register hidden" id="edit-button">
+                    修正
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../detail/script.js" type="module"></script>
+</body>
+

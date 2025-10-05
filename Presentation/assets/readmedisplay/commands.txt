@@ -1,0 +1,1 @@
+ffmpeg -i input.mp4 -c:v libwebp -lossless 1 -preset default -loop 0 output_lossless.webp

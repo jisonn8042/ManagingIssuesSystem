@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規会員登録</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/icon/list-check.png">
+    <link rel="stylesheet" href="../signin/style.css">
+</head>
+<body>
+    <div class="signin-wrapper">
+        <div class="signin-header">
+            <div class="signin-header-title">
+                課題管理システム
+            </div>
+        </div>
+        <form class="signin-content" id="signin-form">
+            <div class="signin-content-name">
+                <div class="signin-content-name-title">
+                    名前
+                </div>
+                <div class="signin-content-name-input-wrapper-wrapper">
+                    <div class="signin-content-name-input-wrapper">
+                        <div class="signin-content-name-input-title">
+                            姓を入力してください
+                        </div>
+                        <input type="text" id="last-name" class="signin-content-name-input" placeholder="山田">
+                        <div id="last-name-error-message" class="signin-error-message invisible">
+                            姓を入力してください
+                        </div>
+                    </div>
+                    <div class="signin-content-name-input-wrapper">
+                        <div class="signin-content-name-input-title">
+                            名を入力してください
+                        </div>
+                        <input type="text" id="first-name" class="signin-content-name-input" placeholder="太郎">
+                        <div id="first-name-error-message" class="signin-error-message invisible">
+                            名を入力してください
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="signin-content-mail">
+                <div class="signin-content-mail-title">
+                    メールアドレス
+                </div>
+                <div class="signin-content-mail-input-wrapper">
+                    <div class="signin-content-mail-input-title">
+                        メールアドレスを入力してください
+                    </div>
+                    <input type="email" id="email" class="signin-content-mail-input" placeholder="xxxxxxx@email.com">
+                    <div id="email-error-message" class="signin-error-message invisible">
+                        メールアドレスを入力してください
+                    </div>
+                </div>
+            </div>
+            <div class="signin-content-password">
+                <div class="signin-content-password-title">
+                    パスワード
+                </div>
+                <div class="signin-content-password-input-wrapper-wrapper">
+                    <div class="signin-content-password-input-wrapper">
+                        <div class="signin-content-password-input-title">
+                            パスワードを入力してください
+                        </div>
+                        <input type="password" id="password" class="signin-content-password-input" placeholder="●●●●●●●●●">
+                        <div id="password-error-message" class="signin-error-message invisible">
+                            パスワードを入力してください
+                        </div>
+                    </div>
+                    <div class="signin-content-password-input-wrapper">
+                        <div class="signin-content-password-input-title">
+                            パスワードを入力してください
+                        </div>
+                        <input type="password" id="password-confirm" class="signin-content-password-input" placeholder="●●●●●●●●●">
+                        <div id="password-confirm-error-message" class="signin-error-message invisible">
+                            パスワードを入力してください
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <button type="submit"   class="signin-content-button-signin">
+                新規登録
+            </button>
+        </form>
+        <script src="../signin/script.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+/*reset*/
+body {
+    margin: 0;
+}
+
+input{
+    padding: 0;
+    border: none;
+}
+
+button{
+    border: none;
+}
+
+select{
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/*styles*/  
+*{
+    font-family: Noto Sans JP;
+}
+
+.drop-box-invisible{
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+/*drop-box*/
+.drop-box-wrapper{
+    width: 100%;
+    position: relative;
+}
+
+.drop-box{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #3C3C3C;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: Noto Sans JP;
+    font-size: 20px;
+    line-height: 90%;
+    text-align: center;
+    height: 36px;
+    width: 100%;
+}
+
+.drop-box:hover{
+    cursor: pointer;
+}
+
+.drop-box-text{
+    border-radius: 5px;
+    width: 100%;
+    padding: 0 8px;
+    line-height: 26px;
+    color: #3C3C3C;
+    font-family: Noto Sans JP;
+    font-size: 20px;
+    text-align: center;
+    user-select: none;
+    overflow: hidden;
+    cursor: inherit;
+}
+
+.drop-box-icon{
+    display: block;
+    border-left: 1px solid #3C3C3C;
+    padding: 8px;
+    color: #3C3C3C;
+    user-select: none;  
+    height: auto;
+}
+
+
+.drop-box-option-wrapper{
+    position: absolute;
+    top: 36px;
+    right: 0;
+    width: 100%;
+    background-color: #FCFCFD;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+    user-select: none;  
+    max-height: 275px;
+    overflow-y: auto;
+
+    border-radius: 5px;
+    z-index: 75;
+
+}
+
+.drop-box-option{
+    max-height: 37px;
+    font-size: 20px;
+    padding: 8px 4px;
+    color: #3C3C3C; 
+    line-height: 20px;
+}
+
+.drop-box-option:hover{
+    cursor: pointer;
+    background-color: #E7E7E7;
+}
+
+
+.drop-box-option.normal::after{
+    transform: translateY(8px);
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #B2B2B5;
+}
+
+.drop-box-option:last-child::after{
+    display: none;
+}
+
+/*
+big
+.drop-box{
+    height: 36px;
+}
+.drop-box-icon{
+    padding: 8px;
+}
+.drop-box-option-wrapper{
+    top: 36px;
+}
+
+small
+.drop-box{
+    height: 28px;
+}
+.drop-box-icon{
+    padding: 4px;
+}
+
+.drop-box-option-wrapper{
+    top: 28px;
+}
+*/

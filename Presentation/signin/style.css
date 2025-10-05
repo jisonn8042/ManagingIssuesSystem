@@ -1,0 +1,209 @@
+
+
+button{
+    border: none;
+    cursor: pointer;
+}
+
+body{
+    margin: unset;
+}
+
+input.error-input{
+    border: 2px solid #ee0000;
+}
+
+input.error-input:focus{
+    border: 2px solid #ee0000;
+    outline: none;
+}
+
+*{
+    font-family: Noto Sans JP;
+    line-height: 100%;
+}
+
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #E7E7E7;
+    background-image: url(../assets/images/taskmanagesystem-login.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.invisible{
+    display: none;
+}
+
+
+.signin-wrapper{
+    width: 608px;
+    display: flex;
+    flex-direction: column;
+}
+
+.signin-header{
+    padding: 0 32px 32px 32px;
+    font-size: 40px;
+
+}
+
+.signin-header-title{
+    color: #37A660;
+}
+
+.signin-content{
+    padding: 32px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    border-radius: 5px;
+}
+
+.signin-content-header-title{
+    font-size: 24px;
+}
+
+.signin-content{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.signin-content-name{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.signin-content-name-title{
+    font-size: 24px;
+}
+
+.signin-content-name-input-wrapper-wrapper{
+    display: flex;
+    gap: 4px;
+}
+
+.signin-content-name-input-wrapper{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.signin-content-name-input-title{
+    font-size: 16px;
+}
+
+.signin-content-name-input{
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 20px;
+    padding: 12px 16px; 
+    border-radius: 5px;
+    border: 2px solid #B2B2B5;
+    max-height: 44px;
+}
+
+.signin-content-mail{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.signin-content-mail-title{
+    font-size: 24px;
+}
+
+.signin-content-mail-input-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.signin-content-mail-input-title{
+    font-size: 16px;
+}
+
+.signin-content-mail-input{
+    box-sizing: border-box;
+    font-size: 20px;
+    padding: 12px 16px; 
+    border-radius: 5px;
+    border: 2px solid #B2B2B5;
+    max-height: 44px;
+}
+
+
+.signin-content-password{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.signin-content-password-title{
+    font-size: 24px;    
+}
+
+.signin-content-password-input-wrapper-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.signin-content-password-input-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.signin-content-password-input-title{
+    font-size: 16px;
+}  
+
+.signin-content-password-input{
+    box-sizing: border-box;
+    font-size: 20px;
+    padding: 12px 16px; 
+    border-radius: 5px;
+    border: 2px solid #B2B2B5;
+    max-height: 44px;
+}
+
+.signin-content-password-input::placeholder{
+    color: #B2B2B5;
+}
+
+.signin-content-button-signin{
+    padding: 16px 0;
+    line-height: 20px;
+    font-size: 20px;
+    max-height: 52px;
+    border-radius: 5px;
+    background-color: #37A660;
+    box-sizing: border-box;
+    text-align: center;
+    color: #FCFCFD;
+    cursor: pointer;
+
+}
+
+.signin-content-button-signin:hover{
+    background-color: #288f4e;
+}
+
+.signin-error-message{
+    color: #ee0000;
+    font-size: 12px;
+}
+
+
+
+

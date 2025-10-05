@@ -1,0 +1,6 @@
+node_modules/
+
+system/ 
+server_launcher/
+auto_write_test_description/
+.venv/

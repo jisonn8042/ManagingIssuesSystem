@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題登録・修正</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/icon/list-check.png">
+    <link rel="stylesheet" href="../components/dropbox/dropbox.css">
+    <link rel="stylesheet" href="../components/userlistdropbox/userlistdropbox.css">
+    <link rel="stylesheet" href="../registrationfix/style.css">
+    <link rel="stylesheet" href="../components/profilecard/profilecard.css">
+
+
+</head>
+<body>
+    <script src="../middlewares/checkAuth.js" type="module"></script>
+    <div class="page-layout">
+        <div class="header">
+            <div class="header-wrapper">
+                <div class="header-title">課題管理システム/課題登録・修正</div>
+                <div class="profile-icon">
+                    <div class="profile-wrapper">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <form class="content-wrapper" name="task">
+                <div class="content-wrapper-title">
+                    <div class="content-wrapper-title-item">
+                        タスクID
+                    </div>
+
+                    <div class="content-wrapper-title-item title">
+                        タイトル
+                        <div class="content-wrapper-item-error-essential">
+                            ※必須
+                        </div>
+                        <div class="content-wrapper-title-item-error-letteroverflow">
+                            最大50文字まで入力可能です。
+                        </div>
+                    </div>
+                    <div class="content-wrapper-title-item">
+                        ステータス
+                        <div class="content-wrapper-item-error-essential">
+                            ※必須
+                        </div>
+                    </div>
+                    <div class="content-wrapper-title-item">
+                        優先度
+                        <div class="content-wrapper-item-error-essential">
+                            ※必須
+                        </div>  
+                    </div>
+                    
+                    <div class="content-wrapper-title-item" id="task-id">
+                    </div>
+                    <div class="content-wrapper-title-item">
+                        <input class="content-wrapper-title-item-titleinput" type="text" placeholder="タイトルを入力" id="title">
+                    </div>
+                    <div class="content-wrapper-title-item status">
+                        <div class="drop-box-wrapper"  id="status-drop-box">  
+                        </div>   
+                    </div>
+                    <div class="content-wrapper-title-item">
+                        <div class="drop-box-wrapper"  id="priority-drop-box">  
+                        </div>   
+                    </div>
+                </div>
+
+                <div class="content-wrapper-user">
+                    <div class="content-wrapper-user-item">
+                        起票者
+                    </div>                    
+                    <div class="content-wrapper-user-item">
+                        起票日
+                        <div class="content-wrapper-item-error-essential">
+                            ※必須
+                        </div>
+                    </div>                    
+                    <div class="content-wrapper-user-item">
+                        担当者
+                        <div class="content-wrapper-item-error-essential">
+                            ※必須
+                        </div>
+                    </div>                    
+                    <div class="content-wrapper-user-item">
+                        期限日
+                        <div class="content-wrapper-item-error-essential">
+                            ※必須
+                        </div>
+                    </div>                    
+                    <div id="suggest-user" class="content-wrapper-user-item user-item" id="suggest-user">
+                    </div>                    
+                    <div class="content-wrapper-user-item">
+                        <input type="date" class="content-wrapper-user-item-date-input" placeholder="YYYY/MM/DD" id="suggest-date">
+                    </div>                    
+                    <div class="content-wrapper-title-item">
+                        <div class="drop-box-wrapper" id="user-drop-box">  
+                        </div>   
+                    </div>               
+                    <div class="content-wrapper-user-item">
+                        <input type="date" class="content-wrapper-user-item-date-input" placeholder="YYYY/MM/DD" id="deadline-date">
+
+                    </div>
+                </div>
+
+                <div class="content-wrapper-description task">
+                    <div class="content-wrapper-description-item">
+                        <div class="content-wrapper-description-item-title">
+                            課題内容
+                        </div>
+                        <div class="content-wrapper-item-error-essential">
+                            ※必須
+                        </div>
+                        <div class="content-wrapper-title-item-error-letteroverflow">
+                            最大2000文字まで入力可能です。
+                        </div>
+                    </div>
+                    <div class="content-wrapper-description-item">
+                        <textarea class="content-wrapper-description-item-input" placeholder="課題内容を入力" id="task-description"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="content-wrapper-description action">
+                    <div class="content-wrapper-description-item">
+                        <div class="content-wrapper-description-item-title">
+                            対応内容
+                        </div>
+                        <div class="content-wrapper-item-error-essential invisible" id="action-error-essential">
+                            ※必須
+                        </div>
+                        <div class="content-wrapper-title-item-error-letteroverflow">
+                            最大2000文字まで入力可能です。
+                        </div>
+                    </div>
+                    <div class="content-wrapper-description-item">
+                        <textarea class="content-wrapper-description-item-input" placeholder="課題内容を入力" id="action-description"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="content-wrapper-date">            
+                    <div class="content-wrapper-date-item">
+                        更新者
+                    </div>                    
+                    <div class="content-wrapper-date-item">
+                        更新日
+                    </div>                    
+                    <div class="content-wrapper-date-item">
+                        完了日
+                    </div>                                   
+                    <div id="update-user" class="content-wrapper-date-item">
+                        
+                    </div>                    
+                    <div id="update-date" class="content-wrapper-date-item">
+                        
+                    </div>                    
+                    <div id="complete-date" class="content-wrapper-date-item">
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="footer">
+            <div class="footer-wrapper">
+                <button class="footer-wrapper-button cancle" id="cancle-button">
+                    キャンセル
+                </button>
+                <button form="task" class="footer-wrapper-button register" id="register-button">
+                    登録
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../registrationfix/script.js" type="module"></script>
+</body>
+

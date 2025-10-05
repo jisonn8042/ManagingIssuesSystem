@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="ログインページ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap"></noscript>
+    <title>ログイン</title>
+    <link rel="icon" href="../assets/icon/list-check.png">
+    <link rel="stylesheet" href="../login/style.css">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-header">
+            <div class="login-header-title">
+                課題管理システム
+            </div>
+        </div>
+        <form id="login-form" class="login-content">
+            <div class="login-content-header">
+                <div class="login-content-header-title">
+                    ログイン
+                </div>
+            </div>
+            <div class="login-content-content">
+                <div class="login-content-content-mail-wrapper">
+                    <div class="login-content-content-mail-title">
+                        メールアドレス
+                    </div>
+                    <div class="login-content-content-mail-input-wrapper">
+                        <input type="email" id="email" class="login-content-content-mail-input" placeholder="xxxxxxx@email.com">
+                        <div id="email-error-message" class="login-error-message invisible">
+                            メールアドレスを入力してください
+                        </div>
+                    </div>
+                </div>
+                <div class="login-content-content-password-wrapper">
+                    <div class="login-content-content-password-title">
+                        パスワード
+                    </div>
+                    <div class="login-content-content-password-input-wrapper">
+                        <input type="password" id="password" class="login-content-content-password-input" placeholder="●●●●●●●●●">
+                        <div id="password-error-message" class="login-error-message invisible">
+                            パスワードを入力してください
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="login-content-footer">
+                <button type="submit" form="login-form" id="login-button" class="login-content-footer-button">
+                    ログイン
+                </button>
+            </div>
+        </form id>
+        <div class="login-footer">
+            <div class="login-footer-assign-wrapper">
+                <div class="login-footer-assign-text">
+                    ログインできない場合
+                </div>
+                <div class="login-footer-assign-link">
+                    <a href="../signin" class="login-footer-assign-link-text">新規会員登録へ</a>
+                </div>
+            </div>
+            <div class="login-footer-lost">
+                メールやパスワードを忘れた場合 管理者に問い合わせください
+            </div>
+        </div>
+    </div>
+    <script src="../login/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+/* @import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css); */
+
+body{
+    margin: unset;
+}
+
+button{
+    border: none;
+    cursor: pointer;
+    display: block;
+}
+
+input.error-input{
+    border: 2px solid #ee0000;
+}
+
+input.error-input:focus{
+    border: 2px solid #ee0000;
+    outline: none;
+}
+
+.invisible{
+    display: none;
+}
+
+
+
+*{
+    font-family: Noto Sans JP;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e7e7e7;
+    background-image: url(../assets/images/taskmanagesystem-login.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.login-wrapper{
+    width: 608px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-header{
+    padding: 0 32px 32px 32px;
+    font-size: 40px;
+
+}
+
+.login-header-title{
+    color: #37A660;
+}
+
+.login-content{
+    padding: 32px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    border-radius: 5px;
+}
+
+.login-content-header-title{
+    font-size: 24px;
+}
+
+.login-content-content{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.login-content-content-mail-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.login-content-content-mail-title{
+    font-size: 20px;
+}
+
+.login-content-content-mail-input{
+    padding: 12px 16px;
+    line-height: 20px;
+    font-size: 20px;
+    max-height: 44px;
+    border-radius: 5px;
+    border: 2px solid #B2B2B5;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.login-content-content-password-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.login-content-content-password-title{
+    font-size: 20px;
+}   
+
+.login-content-content-password-input{
+    padding: 12px 16px;
+    line-height: 20px;
+    font-size: 20px;
+    max-height: 44px;
+    border-radius: 5px;
+    border: 2px solid #B2B2B5;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.login-content-footer-button{
+    width: 100%;
+    padding: 16px 0;
+    line-height: 20px;
+    font-size: 20px;
+    max-height: 52px;
+    border-radius: 5px;
+    background-color: #37A660;
+    box-sizing: border-box;
+    text-align: center;
+    color: #FCFCFD;
+    cursor: pointer;
+}
+
+.login-content-footer-button:hover{
+    background-color: #2E864F;
+}
+
+.login-footer{
+    padding: 32px 32px 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.login-footer-assign-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.login-footer-assign-text{
+    display: flex;
+}
+
+
+.login-footer-assign-text::before{
+    transform: translateY(10px);
+    margin-right: 16px;
+    content: "";
+    display: block;
+    border-top: 1px solid #000000;
+    flex-grow: 1;
+}
+
+.login-footer-assign-text::after{
+    transform: translateY(10px);
+    margin-left: 16px;
+    content: "";
+    display: block;
+    border-top: 1px solid #000000;
+    flex-grow: 1;
+}
+
+.login-footer-assign-link{
+    text-align: center;
+}
+
+.login-footer-assign-link-text{
+    color: #0063B1;
+}
+
+.login-footer-lost{
+    text-align: center;
+}
+
+
+.login-error-message{
+    color: #ee0000;
+    font-size: 12px;
+}

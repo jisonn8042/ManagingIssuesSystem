@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <title>ユーザ管理</title>
+    <link rel="icon" href="../assets/icon/list-check.png">
+    <link rel="stylesheet" href="../usermanage/style.css">
+    <link rel="stylesheet" href="../components/checkbox/checkbox.css">
+    <link rel="stylesheet" href="../components/dropbox/dropbox.css">
+    <link rel="stylesheet" href="../components/profilecard/profilecard.css">
+</head>
+<body class="invisible">
+    <script src="../middlewares/checkAuth.js"></script>
+
+
+    <div class="header">
+        <div class="header-wrapper">
+            <div class="header-wrapper-left">
+                <a href="../list" class="backward-button">
+                    ←
+                </a>
+                <div class="header-title">課題管理システム/ユーザ管理</div>
+            </div>
+            <div class="profile-icon">
+                <div class="profile-wrapper">
+                </div>
+            </div>
+        </div>
+        <div class="serach-bar">
+            <div class="serach-bar-wrapper">
+                <div class="serach-bar-title-wrapper">
+                    <div class="serach-bar-title">
+                        ユーザ管理
+                    </div>
+                </div>
+                <form id="search-conditions" class="serach-bar-condition-wrapper">
+                    <div class="serach-bar-condition-task-manage">
+                        <div class="serach-bar-condition-task-manage-title-wrapper">
+                            <div class="serach-bar-condition-task-manage-title">
+                                課題削除権限
+                            </div>
+                        </div>
+                        <div class="checkbox-wrapper" id="task-manage">
+                        </div>  
+                    </div>
+                    <div class="serach-bar-condition-user-manage">
+                        <div class="serach-bar-condition-user-manage-title">
+                            ユーザ管理権限
+                        </div>
+                        <div class="checkbox-wrapper" id="user-manage">
+                        </div>  
+                    </div>
+                    <div class="serach-bar-search-wrapper">
+                        <div class="serach-bar-search-input-wrapper">
+                            <div class="serach-bar-search-input-title">
+                                名前検索
+                            </div>
+                            <input type="text" class="serach-bar-search-input" placeholder="名前を入力してください">
+                        </div>
+    
+                        <div class="serach-bar-button-wrapper">
+                            <button form="search-conditions" type="button" class="serach-bar-serch-button">
+                                検索
+                            </button>
+                            <button type="button" class="serach-bar-condition-clear-button">
+                                条件初期化
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="content-layout-top">
+            <div class="content-wrapper">
+                <div class="content-list-count-wrapper">
+                    <div class="content-list-count-info">全 250件中 1-20件目</div>
+                    <div class="content-list-count-control">
+                        <div class="content-list-count-control-display-wrapper">
+                            <div class="content-list-count-control-display-wrapper-text">
+                                表示件数
+                            </div>
+                            <div class="drop-box-wrapper" id="display-count">  
+                            </div>
+                        </div>
+                        <div class="list-page-control-button-wrapper">
+                            <button type="button" id="prev" class="list-page-control-button disabled">
+                                前へ
+                            </button>
+                            <button type="button" id="next" class="list-page-control-button">
+                                次へ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-list-wrapper-top">
+                    <div class="list-wrapper subject">
+                        <div class="list-item subject">
+                            ユーザNo
+                        </div>
+                        <div class="list-item subject">
+                            姓
+                        </div>
+                        <div class="list-item subject">
+                            名
+                        </div>
+                        <div class="list-item subject text-left">
+                            メール
+                        </div>
+                        <div class="list-item subject text-left">
+                            パスワード変更
+                        </div>
+                        <div class="list-item subject">
+                            課題削除権限
+                        </div>
+                        <div class="list-item subject">
+                            ユーザ管理権限
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+
+
+    <div class="content">
+        <div class="content-layout">
+            <div class="content-wrapper">
+                <div class="content-list-wrapper">
+                </div>
+            </div>
+        </div>  
+
+    </div>
+
+    <div class="footer">
+        <div class="footer-button-wrapper">
+            <button class="footer-button edit-reset">
+                編集初期化
+            </button>
+            <button class="footer-button edit-save">
+                保存
+            </button>
+        </div>
+    </div>
+
+    <script src="../usermanage/script.js" type="module"></script>
+</body>
+</html>
