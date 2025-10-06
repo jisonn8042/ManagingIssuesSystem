@@ -2,13 +2,11 @@ import { createDropBox, setDropBoxValue } from '../components/dropbox/dropbox.js
 import {createProfileCard} from '../components/profilecard/profilecard.js';
 import { createUserListDropBox, setUserListDropBoxValue } from '../components/userlistdropbox/userlistdropbox.js';
 
+//token取得
 const token = localStorage.getItem("token");
 
-
-
-
-
-
+//変数宣言
+//課題内容変数登録
 let profile;
 let statusData;
 let priorityData;
@@ -23,13 +21,16 @@ let titleData;
 let taskDescriptionData;
 let actionDescriptionData;
 
+//ユーザーデータ変数登録
 let usersData;
 let usersListData;
 
+//課題IDから取得した課題データ変数登録
 let taskData;
 
 
 //fetch data
+//ステータスデータ取得
 async function fetchStatusData(){
     const response = await fetch(`/status`, {
         method: "GET",
@@ -42,6 +43,7 @@ async function fetchStatusData(){
     return data;
 }
 
+//優先度データ取得
 async function fetchPriorityData(){
     const response = await fetch(`/priority`, {
         method: "GET",
@@ -54,6 +56,7 @@ async function fetchPriorityData(){
     return data;
 }
 
+//ユーザーデータ取得
 async function fetchUsersData(){
     const response = await fetch("/users", {
         method: "GET",
@@ -66,6 +69,7 @@ async function fetchUsersData(){
     return data;
 }
 
+//tokenからプロフィールデータ取得
 async function fetchUserData(){
     const response = await fetch("/profile", {
         method: "GET",
@@ -76,6 +80,8 @@ async function fetchUserData(){
     const data = await response.json();
     profile = data;
 }
+
+//課題IDから課題データ取得
 async function fetchTaskData(taskId){
     try {
         const response = await fetch("/tasks/" + taskId,{
@@ -95,7 +101,7 @@ async function fetchTaskData(taskId){
 
 
 
-
+//ステータスデータを
 function modifyStatusData(data){
     
     let statusData = [];
@@ -764,9 +770,6 @@ cancelButton.addEventListener('click', (e) => {
 
 //Event: Document loaded
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log(document.referrer);
-    console.log(window.location.pathname);
-    console.log(window.history);
 
     await fetchUserData();
     await fetchUsersData(); 

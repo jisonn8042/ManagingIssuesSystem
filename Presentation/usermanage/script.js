@@ -432,7 +432,6 @@ searchButton.addEventListener('click', async (e) => {
     );
     userData = await response.json();
     userData = userData.sort((a, b) => a.user_id - b.user_id);
-    console.log(userData);
     if(userData.length < 1){
         userData = await fetchUsers();
         alert('検索結果がありません');
@@ -449,12 +448,6 @@ searchButton.addEventListener('click', async (e) => {
     }
     updateDisplayCountInfo();
     renderUserList(displayCount.startIndex, displayCount.endIndex);
-
-    console.log('search');
-    console.log(userData);
-    console.log(displayCount.startIndex);
-    console.log(displayCount.endIndex);
-    console.log(displayCount.count);
 
 });
 
@@ -560,6 +553,8 @@ editSaveButton.addEventListener('click', async (e) => {
 
     });
 
+    console.log(JSON.stringify(data));
+
     if(confirm("保存しますか？")){
 
         if(data.length < 1){
@@ -582,11 +577,7 @@ editSaveButton.addEventListener('click', async (e) => {
             const responseData = await response.json();
             console.log(responseData);
             if(!responseData.error){
-                console.log('save');
-                console.log(userData.length);
-                console.log(displayCount.startIndex);
-                console.log(displayCount.endIndex);
-                console.log(displayCount.count);
+
                 alert('保存しました');
 
                 displayCount.reset();
