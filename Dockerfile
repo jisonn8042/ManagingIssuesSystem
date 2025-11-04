@@ -7,6 +7,10 @@ RUN npm ci
 
 COPY server/. .
 
+COPY Presentation/. .
+
+WORKDIR /usr/src/app/server
+
 EXPOSE 5500
 
 CMD ["node", "api.js"]
