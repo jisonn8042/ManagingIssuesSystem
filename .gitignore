@@ -4,3 +4,6 @@ system/
 server_launcher/
 auto_write_test_description/
 .venv/
+.env
+.env.local
+.env.dev

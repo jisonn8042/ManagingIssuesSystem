@@ -1,9 +1,23 @@
+const path = require("path");
+
 const http = require("http");
 const url = require("url");
-const db = require("./db");
+
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env")
+});
+
+//The db variable is dynamically set based on the USE_DB environment variable, 
+// enabling server testing without a database connection.
+const USE_DB = process.env.USE_DB === "true";
+let db = null;
+if(USE_DB) {
+  db = require("./db")
+};
+
+//const db = require("./db");
 const fs = require("fs");
 const querystring = require("querystring");
-const path = require("path");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
@@ -1072,8 +1086,10 @@ const server = http.createServer( (req, res) => {
 
 
 
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
+const NODE_ENV = process.env.NODE_ENV || "local";
 server.listen(PORT, ipAddress || 'unknown', () => {
+    logger.info(`Current environment: ${NODE_ENV}`);
     logger.info(`server is running on port ${PORT} and ip address ${ipAddress}\n can access from http://${ipAddress}:5500/login`);
 });
 
