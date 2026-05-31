@@ -78,6 +78,9 @@ Excel方式で管理しながら感じた改善点を適用した進化した課
 ```text
 
 TaskManagingSystem
+├── docs
+│   ├── .env.exmaple
+│   └── env.md
 ├── Presentation
 │   ├── assets
 │   │   └── images
