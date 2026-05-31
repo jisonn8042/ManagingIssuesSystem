@@ -45,7 +45,7 @@ dev: 팀 개발용 서버 또는 클라우드 테스트 환경
 
 ---
 
-## 2. Database switch
+## 2. Database Switch
 
 DB 연결을 사용할지 여부를 설정한다.
 
@@ -161,7 +161,7 @@ GMAIL_APP_PASSWORD=
 
 ---
 
-## 5. File Storage
+## 5. File DIR
 
 서버에서 사용할 파일 저장 경로를 설정한다.
 
@@ -193,7 +193,7 @@ PRESENTATION_DIR=/home/azureuser/app/presentation
 PORT=5500
 NODE_ENV=local
 
-# Database switch
+# Database Switch
 USE_DB=false
 
 # PostgreSQL
@@ -208,5 +208,5 @@ JWT_SECRET=
 GMAIL_USER=
 GMAIL_APP_PASSWORD=
 
-# File Storage
+# File DIR
 PRESENTATION_DIR=./presentation

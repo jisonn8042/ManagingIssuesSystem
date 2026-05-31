@@ -7,6 +7,8 @@ require("dotenv").config({
   path: path.resolve(__dirname, "../.env")
 });
 
+const FileDIR = process.env.FILE_DIR;
+
 //The db variable is dynamically set based on the USE_DB environment variable, 
 // enabling server testing without a database connection.
 const USE_DB = process.env.USE_DB === "true";
@@ -15,7 +17,6 @@ if(USE_DB) {
   db = require("./db")
 };
 
-//const db = require("./db");
 const fs = require("fs");
 const querystring = require("querystring");
 const bcrypt = require("bcrypt");
@@ -33,7 +34,8 @@ const pretty = require('pino-pretty');
 
 function getLogPath(level){
     const today = new Date().toISOString().split('T')[0];
-    const dir = path.join(__dirname, "../Presentation/system/logs", today);
+    const dir = path.join(__dirname, `${FileDIR}/system/logs`, today);
+    console.log(dir);
     if(!fs.existsSync(dir)){
         fs.mkdirSync(dir, { recursive: true });
     }
@@ -774,7 +776,7 @@ const server = http.createServer( (req, res) => {
             const segments = pathUrl.split("/");
             const folder = segments[1];
             const restPath = segments[segments.length - 1];
-            const filePath = path.join(__dirname, "../Presentation", folder, restPath);
+            const filePath = path.join(__dirname, `${FileDIR}`, folder, restPath);
             
             fs.readFile(filePath, (err, data) => {
                 if(err){
@@ -788,7 +790,7 @@ const server = http.createServer( (req, res) => {
             
         }else{
             const [folder, file] = pageRoutes[matchedUrl];
-            const filePath = path.join(__dirname, "../Presentation", folder, file);
+            const filePath = path.join(__dirname, `${FileDIR}`, folder, file);
             
             fs.readFile(filePath, (err, data) => {
                 if(err){
@@ -807,7 +809,7 @@ const server = http.createServer( (req, res) => {
     // 정적 파일 제공
     if (pageRoutes[pathUrl] && !pathUrl.includes("/detail")) {
         const [folder, file] = pageRoutes[pathUrl];
-        const filePath = path.join(__dirname, "../Presentation", folder, file);
+        const filePath = path.join(__dirname, `${FileDIR}`, folder, file);
         
         fs.readFile(filePath, (err, data) => {
             if(err){
@@ -826,7 +828,7 @@ const server = http.createServer( (req, res) => {
         const segments = pathUrl.split("/");
         const folder = segments[1];
         const restPath = segments.slice(2).join("/");
-        const filePath = path.join(__dirname, "../Presentation", folder, restPath);
+        const filePath = path.join(__dirname, `${FileDIR}`, folder, restPath);
 
         fs.readFile(filePath, (err, data) => {
             if(err){
@@ -1093,37 +1095,61 @@ server.listen(PORT, ipAddress || 'unknown', () => {
     logger.info(`server is running on port ${PORT} and ip address ${ipAddress}\n can access from http://${ipAddress}:5500/login`);
 });
 
+// 종료 중복 실행을 막기 위한 상태 플래그
+let isShuttingDown = false;
+
+// 공통 Graceful Shutdown 처리 함수
+const gracefulShutdown = (signal) => {
+    // 이미 종료 처리가 진행 중이면 무시 (Ctrl+C 연타 방지)
+    if (isShuttingDown) return;
+    isShuttingDown = true;
+
+    logger.info(`${signal} signal received: disconnect server`);
+
+    // 1. 강제 종료 안전장치: 5초(5000ms) 내에 연결이 다 안 끊기면 강제로 프로세스 종료
+    const forceExitTimeout = setTimeout(() => {
+        logger.fatal('Could not close connections in time, forcefully shutting down');
+        process.exit(1); 
+    }, 5000);
+
+    // 2. (Node.js v18.2.0 이상) Keep-Alive로 대기 중인 모든 클라이언트 연결 강제 해제
+    if (server.closeAllConnections) {
+        server.closeAllConnections();
+    }
+
+    // 3. 기존 요청 처리가 끝나면 서버 정상 종료
+    server.close(() => {
+        clearTimeout(forceExitTimeout); // 정상적으로 닫히면 강제 종료 타이머 취소
+        logger.info('server connection closed');
+        process.exit(0);
+    });
+};
+
 // 서버 에러 핸들링
 server.on('error', (error) => {
     if (error.code === 'EADDRINUSE') {
         logger.fatal(`port ${PORT} is already in use`);
     } else {
-        logger.fatal({error}, "server error");
+        // 팁 적용: Error 객체가 로거에서 {}로 찍히는 것을 방지하기 위해 속성을 풀어서 전달
+        logger.fatal({ message: error.message, stack: error.stack }, "server error");
     }
 });
 
-// 프로세스 에러 핸들링
+// 프로세스 에러 핸들링 (동일하게 에러 속성을 풀어서 전달)
 process.on('uncaughtException', (error) => {
-    logger.fatal({error}, "uncaughtException");
+    logger.fatal({ message: error.message, stack: error.stack }, "uncaughtException");
+    
+    // 선택 사항: uncaughtException 발생 시 앱 상태가 불안정하므로
+    // 아래처럼 gracefulShutdown을 호출하여 안전하게 서버를 끄는 것을 권장합니다.
+    // gracefulShutdown('uncaughtException'); 
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-    logger.fatal({reason, promise}, "unhandledRejection");
+    // reason이 Error 객체일 경우를 대비
+    const errorMessage = reason instanceof Error ? reason.message : reason;
+    logger.fatal({ reason: errorMessage, promise }, "unhandledRejection");
 });
 
-process.on('SIGTERM', () => {
-    logger.info("disconnect server");
-    server.close(() => {
-        logger.info('server connection closed');
-        process.exit(0);
-    });
-});
-
-process.on('SIGINT', () => {
-    logger.info("disconnect server");
-    server.close(() => {
-        logger.info('server connection closed');
-        process.exit(0);
-    });
-});
-
+// 시그널 이벤트 핸들링 (종료 이벤트가 발생하면 공통 함수 호출)
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT',  () => gracefulShutdown('SIGINT'));
