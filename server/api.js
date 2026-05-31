@@ -1089,10 +1089,12 @@ const server = http.createServer( (req, res) => {
 
 
 const PORT = process.env.PORT || 5500;
+const HOST = process.env.HOST || "0.0.0.0";
 const NODE_ENV = process.env.NODE_ENV || "local";
-server.listen(PORT, ipAddress || 'unknown', () => {
+
+server.listen(PORT, HOST, () => {
     logger.info(`Current environment: ${NODE_ENV}`);
-    logger.info(`server is running on port ${PORT} and ip address ${ipAddress}\n can access from http://${ipAddress}:5500/login`);
+    logger.info(`server is running on port ${PORT} and ip address ${HOST}\n can access from http://${HOST}:5500/login`);
 });
 
 // 종료 중복 실행을 막기 위한 상태 플래그
