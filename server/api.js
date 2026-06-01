@@ -35,7 +35,6 @@ const pretty = require('pino-pretty');
 function getLogPath(level){
     const today = new Date().toISOString().split('T')[0];
     const dir = path.join(__dirname, `${FileDIR}/system/logs`, today);
-    console.log(dir);
     if(!fs.existsSync(dir)){
         fs.mkdirSync(dir, { recursive: true });
     }
@@ -124,11 +123,27 @@ const mimeTypes = {
     ".jpeg": "image/jpeg"
 };
 
-const setCorsHeaders = (res) => {
-    res.setHeader("Access-Control-Allow-Origin", `http://${ipAddress}:5500`);
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
+const ALLOWED_ORIGINS = (process.env.CORS_ORIGINS || "")
+  .split(",")
+  .map(origin => origin.trim())
+  .filter(Boolean);
+
+const setCorsHeaders = (req, res) => {
+    const origin = req.headers.origin;
+
+    // 출처가 없는 요청(서버 간 통신 등)이거나 허용된 출처인 경우
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin || "*");
+        res.setHeader("Vary", "Origin");
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+        // 헤더 설정 완료, 다음 미들웨어/라우터로 진행 필요
+        // next(); // (Express 등을 사용 중이라면 next 호출 필요)
+    } else {
+        // 허용되지 않은 출처는 즉시 403 Forbidden 등으로 응답을 종료하여 불필요한 서버 자원 낭비를 막아야 함.
+        res.status(403).json({ error: "CORS policy violation: Origin not allowed" });
+    }
 };
 
 function verifyToken (req, userManageRight = null){
@@ -180,7 +195,7 @@ const server = http.createServer( (req, res) => {
 
     // CORS preflight 요청 처리
     if (method === "OPTIONS") {
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         res.writeHead(200);
         res.end();
         return;
@@ -190,7 +205,7 @@ const server = http.createServer( (req, res) => {
     
     //about tasks
     if (method === "GET" && pathUrl === "/tasks"){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             db.query("SELECT * FROM tasks", (err, result) => {
@@ -217,7 +232,7 @@ const server = http.createServer( (req, res) => {
     }
 
     if (method === "GET" && /^\/tasks\/\d+$/.test(pathUrl)){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             const id = pathUrl.split("/")[2];
@@ -251,7 +266,7 @@ const server = http.createServer( (req, res) => {
     }
 
     if (method === "POST" && pathUrl === "/tasks"){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             let body = '';
@@ -290,7 +305,7 @@ const server = http.createServer( (req, res) => {
     }
 
     if (method === "GET" && pathUrl === "/tasks/search"){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             const {status, priority, title, suggestedBy, suggestedAtStart, suggestedAtEnd, assignedTo, deadlineStart, deadlineEnd, completedAtStart, completedAtEnd} = parsedUrl.query;
@@ -370,7 +385,7 @@ const server = http.createServer( (req, res) => {
     }
 
     if (method === "POST" && pathUrl === "/task/excel"){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             let body = '';
@@ -410,7 +425,7 @@ const server = http.createServer( (req, res) => {
     }
 
     if (method === "PUT" && pathUrl.includes("/tasks")){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             let body = '';
@@ -454,7 +469,7 @@ const server = http.createServer( (req, res) => {
     }
 
     if (method === "DELETE" && pathUrl.includes("/tasks")){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             const id = pathUrl.split("/")[2];
@@ -483,7 +498,7 @@ const server = http.createServer( (req, res) => {
 
     //about users
     if (method === "GET" && pathUrl === "/users"){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             db.query("SELECT * FROM users", (err, result) => {
@@ -510,7 +525,7 @@ const server = http.createServer( (req, res) => {
     }
     
     if (method === "GET" && pathUrl === "/status"){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             db.query("SELECT * FROM statuses", (err, result) => {
@@ -537,7 +552,7 @@ const server = http.createServer( (req, res) => {
     }
 
     if (method === "GET" && pathUrl === "/priority"){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             db.query("SELECT * FROM priorities", (err, result) => {
@@ -565,7 +580,7 @@ const server = http.createServer( (req, res) => {
 
     if (method === "POST" && pathUrl === "/userlogin") {
         logger.info(`Start ${req.method}, ${req.url}`);
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -604,7 +619,7 @@ const server = http.createServer( (req, res) => {
 
     if (method === "POST" && pathUrl === "/users") {
         logger.info(`Start ${req.method}, ${req.url}`);
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -648,7 +663,7 @@ const server = http.createServer( (req, res) => {
 
     if (method === "POST" && pathUrl === "/session") {
         logger.info(`Start ${req.method}, ${req.url}`);
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -692,7 +707,7 @@ const server = http.createServer( (req, res) => {
     }
 
     if (method === "GET" && pathUrl === "/profile") {
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
 
         if(!req.headers["authorization"]){
             res.writeHead(401, { "Content-Type": "application/json" });
@@ -751,7 +766,7 @@ const server = http.createServer( (req, res) => {
     }   
         
     if (method === "GET" && pathUrl === "/api/authcheck") {
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         const user = verifyToken(req);
         user.then(user => {
             res.writeHead(200, { "Content-Type": "application/json" });
@@ -843,7 +858,7 @@ const server = http.createServer( (req, res) => {
 
     if (method === "GET" && pathUrl === "/api/userlist/search"){
         logger.info(`Start ${req.method}, ${req.url}`);
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             const {task_manage, user_manage, name} = parsedUrl.query;
@@ -947,7 +962,7 @@ const server = http.createServer( (req, res) => {
 
 
     if (method === "POST" && pathUrl === "/api/userlist"){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req, true)
         .then(user => {
             let body = '';
@@ -1037,7 +1052,7 @@ const server = http.createServer( (req, res) => {
     }
 
     if (method === "POST" && pathUrl === "/sendmail"){
-        setCorsHeaders(res);
+        setCorsHeaders(req, res);
         verifyToken(req)
         .then(user => {
             let body = '';

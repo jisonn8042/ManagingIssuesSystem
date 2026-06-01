@@ -43,6 +43,18 @@ NODE_ENV=dev
 local: 개발자 개인 PC에서 실행하는 환경
 dev: 팀 개발용 서버 또는 클라우드 테스트 환경
 
+### HOST
+
+서버가 바인딩(Binding)될 네트워크 인터페이스 주소를 지정한다.
+
+```
+HOST=localhost
+```
+
+localhost (또는 127.0.0.1): 로컬 PC 내부에서만 서버에 접근할 수 있도록 제한한다. (보안상 안전한 로컬 개발용)
+
+0.0.0.0: 외부 네트워크(다른 PC, 모바일 기기 등)나 클라우드 외부망에서 서버로 들어오는 인바운드 연결을 허용한다. 도커(Docker) 컨테이너 내부나 AWS, Azure 등 클라우드 가상머신에서 서버를 띄울 때 필수적으로 설정해야 한다.
+
 ---
 
 ## 2. Database Switch
@@ -161,11 +173,11 @@ GMAIL_APP_PASSWORD=
 
 ---
 
-## 5. File DIR
+## 5. File storage
 
 서버에서 사용할 파일 저장 경로를 설정한다.
 
-### PRESENTATION_DIR
+### FILE_DIR
 
 presentation 폴더의 위치를 지정한다.
 
@@ -185,13 +197,34 @@ PRESENTATION_DIR=/home/azureuser/app/presentation
 
 ---
 
-## 6. Example
+## 6. Cors
+
+클라이언트(웹 브라우저)에서 서버 API로 접근할 수 있는 허용 출처(Origin)를 설정한다.
+
+### CORS_ORIGINS
+
+서버 자원에 대한 교차 출처 리소스 공유(CORS)를 허용할 프론트엔드의 프로토콜, 도메인, 포트 주소이다.
+
+```
+CORS_ORIGINS=http://localhost:5173
+```
+
+여러 출처의 접근을 허용해야 할 경우, 쉼표(,)로 구분하여 작성해야한다. (예: http://localhost:5173,https://my-domain.com)
+
+**주의**
+브라우저는 출처를 엄격한 문자열로 비교하므로, 주소 끝에 슬래시(/)를 붙이지 않아야 하며 포트 번호까지 정확히 일치해야 CORS 차단 에러를 방지할 수 있다.
+
+
+---
+
+## 7. Example
 
 아래는 로컬 개발 환경에서 사용할 수 있는 예시이다.
 
 # Server
 PORT=5500
 NODE_ENV=local
+HOST=
 
 # Database Switch
 USE_DB=false
@@ -208,5 +241,8 @@ JWT_SECRET=
 GMAIL_USER=
 GMAIL_APP_PASSWORD=
 
-# File DIR
-PRESENTATION_DIR=./presentation
+# File Storage
+FILE_DIR=../presentation
+
+# Cors
+CORS_ORIGINS=http://localhost:5500
