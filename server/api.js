@@ -3,19 +3,15 @@ const path = require("path");
 const http = require("http");
 const url = require("url");
 
-require("dotenv").config({
-  path: path.resolve(__dirname, "../.env")
-});
+require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 const FileDIR = process.env.FILE_DIR;
 
 //The db variable is dynamically set based on the USE_DB environment variable, 
 // enabling server testing without a database connection.
-const USE_DB = process.env.USE_DB === "true";
+const useDB = process.env.USE_DB === "true";
 let db = null;
-if(USE_DB) {
-  db = require("./db")
-};
+if(useDB) { db = require("./db") };
 
 const fs = require("fs");
 const querystring = require("querystring");
@@ -1109,7 +1105,7 @@ const NODE_ENV = process.env.NODE_ENV || "local";
 
 server.listen(PORT, HOST, () => {
     logger.info(`Current environment: ${NODE_ENV}`);
-    logger.info(`server is running on port ${PORT} and ip address ${HOST}\n can access from http://${HOST}:5500/login`);
+    logger.info(`server is running on port ${PORT} and ip address ${HOST}\n can access from http://${HOST}:${PORT}/login`);
 });
 
 // 종료 중복 실행을 막기 위한 상태 플래그
