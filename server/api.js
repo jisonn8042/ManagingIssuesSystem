@@ -120,9 +120,9 @@ const mimeTypes = {
 };
 
 const ALLOWED_ORIGINS = (process.env.CORS_ORIGINS || "")
-  .split(",")
-  .map(origin => origin.trim())
-  .filter(Boolean);
+    .split(",")
+    .map(origin => origin.trim())
+    .filter(Boolean);
 
 const setCorsHeaders = (req, res) => {
     const origin = req.headers.origin;
@@ -818,6 +818,8 @@ const server = http.createServer( (req, res) => {
     }
 
     // 정적 파일 제공
+    const ext = path.extname(pathUrl);
+    
     if (pageRoutes[pathUrl] && !pathUrl.includes("/detail")) {
         const [folder, file] = pageRoutes[pathUrl];
         const filePath = path.join(__dirname, `${FileDIR}`, folder, file);
@@ -834,7 +836,6 @@ const server = http.createServer( (req, res) => {
         });
     }
 
-    const ext = path.extname(pathUrl);
     if(ext && !pathUrl.includes("/detail")){
         const segments = pathUrl.split("/");
         const folder = segments[1];
