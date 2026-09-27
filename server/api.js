@@ -138,7 +138,8 @@ const setCorsHeaders = (req, res) => {
         // next(); // (Express 등을 사용 중이라면 next 호출 필요)
     } else {
         // 허용되지 않은 출처는 즉시 403 Forbidden 등으로 응답을 종료하여 불필요한 서버 자원 낭비를 막아야 함.
-        res.status(403).json({ error: "CORS policy violation: Origin not allowed" });
+        res.writeHead(403, { "Content-Type": "application/json"});
+	res.end(JSON.stringify({ error: "CORS policy violation: Origin not allowed"}));
     }
 };
 
